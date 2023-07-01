@@ -1,107 +1,106 @@
 @font-face {
-    font-family: monogram;
-    src: url(font/monogram.ttf) format('truetype');
-  }
+  font-family: monogram;
+  src: url(font/monogram.ttf) format('truetype');
+}
 
 body {
-    text-align: center;
-    background-image: url('images/background.png');
-    background-repeat: no-repeat;
-    font-family: monogram;
-    height: 500px;
+  text-align: center;
+  background-image: url('images/background.png');
+  background-repeat: no-repeat;
+  font-family: monogram;
+  height: 500px;
+  margin-bottom: 10px;
+
+  color: white;
+  text-shadow: 2px 2px 2px black;
 }
 
 #word-container {
-    font-size: 48px;
-    margin-bottom: 10px;
-    color: white;
-    text-shadow: 2px 2px 2px black;
-    position: relative;
-    overflow: hidden;
-    height: 48px;
+  font-size: 48px;
+  margin-bottom: 10px;
+  color: white;
+  text-shadow: 2px 2px 2px black;
+  position: relative;
+  overflow: hidden;
+  height: 48px;
   }
   
-  #next-word-container {
-    top: 100%;
-    left: 0;
+#next-word-container {
+  top: 100%;
+  left: 0;
+  font-size: 24px;
+}
+
+.slide-in-animation {
+  animation: slide-in 0.5s forwards, font-size-resize 0.5s ease-in-out forwards;
+}
+
+.slide-in-animation-right {
+  animation: slide-in-right 0.5s forwards;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(150%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+  transform: translateX(100%);
+  }
+  to {
+  transform: translateX(0);
+  }
+}
+
+@keyframes font-size-resize {
+  from {
     font-size: 24px;
   }
-  
-  .slide-in-animation {
-    animation: slide-in 0.5s forwards, font-size-resize 0.5s ease-in-out forwards;
+  to {
+    font-size: 48px;
   }
-
-  .slide-in-animation-right {
-    animation: slide-in-right 0.5s forwards;
-  }
-  
-  @keyframes slide-in {
-    from {
-      transform: translateY(150%);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
-
-    @keyframes slide-in-right {
-        from {
-        transform: translateX(100%);
-        }
-        to {
-        transform: translateX(0);
-        }
-    }
-  
-  @keyframes font-size-resize {
-    from {
-      font-size: 24px;
-    }
-    to {
-      font-size: 48px;
-    }
-  }
+}
 
 #game {
-width: 1500px;
-height: 150px;
+  width: 1500px;
+  height: 150px;
 
-position: absolute;
-margin: 0 auto;
-overflow: hidden;
+  position: absolute;
+  margin: 0 auto;
+  overflow: hidden;
 
 }
 
 .player {
-width: 32px;
-height: 32px;
-position: absolute;
-left: 10px;
-top: 50%;
-transform: translateY(-50%);
-background-image: url('images/chicken.gif');
-background-size: cover;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-image: url('images/chicken.gif');
+  background-size: cover;
 }
 
 .bloon {
-    width: 23px;
-    height: 33px;
-    position: absolute;
-    background-image: url('images/red.png');
-    background-size: contain;
-}
-
-body  {
-    margin-bottom: 10px;
-
-    color: white;
-    text-shadow: 2px 2px 2px black;
+  width: 23px;
+  height: 33px;
+  position: absolute;
+  background-image: url('enemies/red.png');
+  background-size: contain;
 }
 
 #level-container {
-    position: absolute;
-    top: 0;
-    left: 20px;
+  font-size: 30px;
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  text-align: left;
 }
 
 #game-area {
@@ -125,16 +124,63 @@ body  {
 }
 
 .bullet {
-width: 32px;
-height: 32px;
-position: absolute;
-animation: fireball 1s steps(4) infinite;
-background-image: url('images/fireball.png');
-background-size: cover;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  animation: fireball 1s steps(4) infinite;
+  background-image: url('FX/fireball.png');
+  background-size: cover;
 }
 
 @keyframes fireball {
-0% { background-position: 0 0; }
-100% { background-position: 135% 0; }
+  0% { background-position: 0 0; }
+  100% { background-position: 135% 0; }
 }
 
+.sparkle {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  animation: sparkle 1s steps(5) infinite;
+  background-image: url('FX/sparkle.png');
+  background-size: cover;
+}
+
+@keyframes sparkle {
+  0% { background-position: 0 0; }
+  100% { background-position: 135% 0; }
+}
+
+.bomb_explosion {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  animation: bomb_explosion 1s steps(5) forwards;
+  background-image: url('FX/bomb_explosion.png');
+  background-size: cover;
+}
+
+@keyframes bomb_explosion {
+  0% { background-position: 0 0; }
+  100% { background-position: 120% 0; }
+}
+
+#lives-container {
+  font-size: 30px;
+  position: absolute;
+  top: 30px;
+  left: 20px;
+  text-align: left;
+}
+
+#game-over {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}

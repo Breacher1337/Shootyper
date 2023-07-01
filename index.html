@@ -4,11 +4,27 @@
     <title>Shootyper</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="shortcut icon" href="favicon.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="instructions.css">
 </head>
 <body>
-  <h1 class="title">Shootyper</h1>
-  <h2 id="level-container"></h2>
-    <div id="game-area">
+    <h1 class="title">Shootyper</h1>
+
+    <div id="instructions-container">
+        <h1>Shootyper</h1>
+
+        <p>Hitting the ESC key pauses the game</p>
+        <!-- Add your instructions content here -->
+        <button id="start-button">Start Game</button>
+      </div>
+    
+    <div id="level-container"></div>
+    <div id="lives-container"></div>
+    <div id="game-over" class="hidden">
+    <h1>Game Over</h1>
+    <p>Final Level Reached: <span id="final-level"></span></p>
+    <button id="try-again">Try Again</button>
+    </div>
+    <div id="game-area">        
       
         <div id="word-container"></div>
         <div id="next-word-container"></div>
