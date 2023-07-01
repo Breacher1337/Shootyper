@@ -4,20 +4,83 @@ let BULLET_SPEED = 10;
 let BLOON_SPEED = 1;
 let BLOON_HEALTH = 1;
 let INITIAL_BLOON_COUNT = 1;
-let MAX_LIVES = 3;
+let MAX_LIVES = 1;
 
 const words = [
-	"cat", "dog", "bird", "fish", "tree", "book", "rain",
-	"moon", "sun", "star", "fire", "ball", "home", "door",
-	"lamp", "car", "road", "frog", "cake", "corn", "leaf",
-	"boat", "hair", "hand", "milk", "nest", "pipe", "rock",
-	"song", "toad", "twig", "wind", "worm", "yard", "baby",
-	"bear", "bee", "duck", "eyes", "fish", "foot", "goat",
-	"hair", "hand", "ink", "juice", "kiss", "lady", "lamb"
+	"able", "also", "area", "away", "back",
+	"base", "best", "blue", "book", "both",
+	"call", "city", "come", "cost", "dark",
+	"dead", "door", "draw", "each", "easy",
+	"even", "ever", "face", "fact", "fall",
+	"fast", "fear", "feel", "file", "fill",
+	"find", "fire", "five", "flow", "food",
+	"foot", "form", "four", "free", "from",
+	"full", "game", "give", "good", "gray",
+	"grow", "hand", "hard", "have", "head",
+	"hear", "help", "here", "high", "hold",
+	"home", "hope", "hour", "huge", "idea",
+	"into", "iron", "join", "jump", "just",
+	"keep", "kind", "king", "kiss", "know",
+	"land", "last", "late", "lead", "left",
+	"less", "life", "lift", "like", "line",
+	"list", "live", "long", "look", "lose",
+	"love", "luck", "made", "main", "make",
+	"many", "mark", "meet", "milk", "mind",
+	"miss", "more", "most", "move", "much"
 ];
 
-let currentWordIndex = Math.floor(Math.random() * words.length);
-let nextWordIndex = Math.floor(Math.random() * words.length);
+// const sentences = [    
+// "The sun is shining today.",
+// "I love eating pizza.",
+// "She plays the piano beautifully.",
+// "He enjoys going for long walks.",
+// "The cat is sleeping on the mat.",
+// "I need to buy groceries.",
+// "They won the championship game.",
+// "My favorite color is blue.",
+// "The book is on the table.",
+// "We went to the beach last weekend.",
+// "He is studying for his exams.",
+// "She likes to dance in the rain.",
+// "The car broke down on the highway.",
+// "I enjoy watching movies.",
+// "They are going on vacation next month.",
+// "The dog barks at strangers.",
+// "I want to learn how to cook.",
+// "She is a talented singer.",
+// "He is always late for meetings.",
+// "The flowers are blooming in the garden.",
+// "I need to clean my room.",
+// "They are getting married in December.",
+// "The coffee is too hot to drink.",
+// "She wears glasses to see better.",
+// "He is an excellent swimmer.",
+// "The train arrives at 9 o'clock.",
+// "I like to listen to music.",
+// "They are going to the party tonight.",
+// "The bird is building a nest.",
+// "I enjoy playing soccer.",
+// "She has a big collection of stamps.",
+// "He is afraid of heights.",
+// "The rain is pouring outside.",
+// "I need to call my parents.",
+// "They are going to the concert tomorrow.",
+// "The tree provides shade in the park.",
+// "I like to read books.",
+// "She is studying to become a doctor.",
+// "He always forgets his keys.",
+// "The river flows into the ocean.",
+// "I enjoy painting pictures.",
+// "They are going hiking this weekend.",
+// "The clock is ticking on the wall.",
+// "I want to learn a new language.",
+// "She loves to play video games.",
+// "He is a talented actor.",
+// "The cat is chasing the mouse.",
+// "I need to buy a new pair of shoes.",
+// ]
+
+
 const wordContainer = document.getElementById("word-container");
 const nextWordContainer = document.getElementById("next-word-container");
 const inputField = document.getElementById("input-field");
@@ -29,6 +92,7 @@ const finalLevelText = document.getElementById("final-level");
 const tryAgainButton = document.getElementById("try-again");
 const instructionsContainer = document.getElementById("instructions-container");
 const startButton = document.getElementById("start-button");
+const pauseScreen = document.getElementById("pause-screen");
 let score = 0;
 let level = 1;
 let lives = MAX_LIVES;
@@ -37,17 +101,31 @@ let bullets = [];
 let bloons = createBloons(INITIAL_BLOON_COUNT);
 let keys = {};
 let numAbilitiesUsed = 0;
+let currentWord = words[Math.floor(Math.random() * words.length)];
+let nextWord = getWord();
 
-let gameRunning = true;
+let gameRunning = false;
 let paused = false;
+
+pauseScreen.style.display = "none";
+gameOverScreen.style.display = "none";
 
 levelContainer.textContent = "Level: " + level;
 livesContainer.textContent = "Lives: " + lives;
 
+function getWord() {
+	// const randomNumber = Math.random();
+	// if (randomNumber < 0.9) { 
+	return words[Math.floor(Math.random() * words.length)];
+	// } else { 
+	// 	return sentences[Math.floor(Math.random() * sentences.length)];
+	// }
+}
+
 // Display next word
 function displayWord() {
-	wordContainer.textContent = words[currentWordIndex];
-	nextWordContainer.textContent = words[nextWordIndex];
+	wordContainer.textContent = currentWord;
+	nextWordContainer.textContent = nextWord
 	nextWordContainer.classList.add("slide-in-animation-right");
 	wordContainer.classList.add("slide-in-animation");
 
@@ -71,30 +149,39 @@ function checkCollision(element1, element2) {
 	);
 }
 function checkInput() {
-	const enteredWord = inputField.value.trim().toLowerCase();
+	const enteredWord = inputField.value.trim().toLocaleLowerCase();
 	if (!gameRunning) {
 		return;
 	}
-	if (enteredWord === words[currentWordIndex]) {
+	if (enteredWord === currentWord) {
 		score++;
 		shoot();
 		inputField.value = "";
-		currentWordIndex = nextWordIndex;
-		nextWordIndex = Math.floor(Math.random() * words.length);
+		currentWord = nextWord;
+		nextWord = getWord()
 		displayWord();
 	}
-	if (enteredWord === "restart") {
+	if (enteredWord === "restart".toLocaleLowerCase()) {
 		location.reload();
 	}
+
+	if (enteredWord === "pause".toLocaleLowerCase()) {
+		pauseOrRunGame();
+	}
+
 }
 
 document.addEventListener("keydown", function(event) {
-  if (event.key === "Escape") {
-    paused = !paused;
-    if (!paused) {
-      requestAnimationFrame(gameLoop);
-    }
-  }
+	if (event.key === "Escape") {
+		pauseOrRunGame();
+	}
+	if (event.key === "Enter" && gameRunning === false) {
+		startGame();
+	}
+
+	if (event.key === " " && gameRunning === false) {
+		startGame();
+	}
 });
 
 document.addEventListener("click", function(event) {
@@ -106,16 +193,13 @@ document.addEventListener("click", function(event) {
 	}
 });
 
-displayWord();
-inputField.addEventListener("input", checkInput);
-
 function gameLoop() {
 	if (!gameRunning) {
 		return;
 	}
 	if (paused) {
-    requestAnimationFrame(gameLoop);
-    return;
+	requestAnimationFrame(gameLoop);
+	return;
  	}
 	bullets.forEach(function(bullet) {
 		bullet.style.left = bullet.offsetLeft + BULLET_SPEED + "px";
@@ -154,9 +238,9 @@ function gameLoop() {
 			levelContainer.style.backgroundImage = "none";
 		}, 1000);
 
-		BLOON_SPEED += 0.2;
+		BLOON_SPEED += 0.1;
 
-		bloons = createBloons(INITIAL_BLOON_COUNT + level);
+		bloons = createBloons(level);
 
 		BULLET_SPEED += 0.5;
 	}
@@ -178,21 +262,28 @@ function createPlayer() {
 	return player;
 }
 
-function createBloons(count) {
+function createBloons(level) {
 	let bloons = [];
 	const startX = GAME_WIDTH - 30;
 	const startY = GAME_HEIGHT - 110;
+	const count = level * 5
 
 	for (let i = 0; i < count; i++) {
 		let bloon = document.createElement("div");
 		bloon.className = "bloon";
-		bloon.style.left = startX + i * 30 + "px";
-		bloon.style.top = startY + "px";
+		bloon.style.left = startX + i * 30 + getRandomOffset() + "px";
+		bloon.style.top = startY + getRandomOffset() + "px";
 		gameContainer.appendChild(bloon);
 		bloons.push(bloon);
 	}
 	return bloons;
 }
+
+function getRandomOffset() {
+	const offsetRange = 20;
+	const randomOffset = Math.random() * offsetRange - offsetRange / 2;
+	return randomOffset;
+  }
 
 function shoot() {
 	let bullet = document.createElement("div");
@@ -227,13 +318,34 @@ function handleCollision() {
 
 function gameOver() {
 	gameOverScreen.style.display = "block";
-	finalLevelText.textContent = "You made it to level " + level;
+	finalLevelText.textContent = "You made it to level " + level + "Your final score:" + score;
 }
 
 function startGame() {
 	instructionsContainer.style.display = "none";
 	gameContainer.style.display = "block";
+	displayWord();
+	inputField.addEventListener("input", checkInput);
+	gameRunning = true;
 	requestAnimationFrame(gameLoop);
+}
+
+function pauseOrRunGame() {
+	paused = !paused;
+	if (paused) {
+		gameRunning = false;
+		gameContainer.style.display = "none";
+		instructionsContainer.style.display = "none";
+		gameOverScreen.style.display = "none";
+		pauseScreen.style.display = "block";
+	} else {
+		gameRunning = true;
+		gameContainer.style.display = "block";
+		pauseScreen.style.display = "none";
+	}
+	if (!paused) {
+		requestAnimationFrame(gameLoop);
+	}
 }
 
 

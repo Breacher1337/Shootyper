@@ -5,32 +5,71 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="shortcut icon" href="favicon.jpg" type="image/x-icon">
     <link rel="stylesheet" href="instructions.css">
+    <link rel="stylesheet" href="pause.css">
+    <link rel="stylesheet" href="gameover.css">
 </head>
 <body>
     <h1 class="title">Shootyper</h1>
+    <div id="pause-screen">
+        <h1>Game Paused</h1>
 
+        <p>Welcome to Shootyper! A game made by Elaijah.</p>
+
+        <p>Here are the instructions: </p>
+
+        <p>Type in the input box the words that appear on the screen.
+            When you type the word correctly, the word will disappear and the chicken will shoot a fireball.
+        </p>
+        <p>The bloons on the right will try to get the chicken, and its up to you to keep the chicken alive!</p>
+        <p>There is no end game, just try to survive as long as you can!</p>
+
+        <h2>Did you know:</h2>
+
+        <p>Shootyper is a combination of the words "Shooter" and "Typer"!</p>
+        <p>Inputting the word "Restart" will restart the game.</p>
+        <p>Inputting the word "Pause" will pause the game.</p>
+
+        <h2>Press ESC to Continue.</h2>
+
+        
+    </div>
     <div id="instructions-container">
         <h1>Shootyper</h1>
+        <p>Welcome to Shootyper! A game made by Elaijah.</p>
 
-        <p>Hitting the ESC key pauses the game</p>
+        <p>Here are the instructions: </p>
 
+        <p>Type in the input box the words that appear on the screen.
+            When you type the word correctly, the word will disappear and the chicken will shoot a fireball.
+        </p>
+        <p>The bloons on the right will try to get the chicken, and its up to you to keep the chicken alive!</p>
+        <p>There is no end game, just try to survive as long as you can!</p>
+
+        <h2>Did you know:</h2>
+
+        <p>Shootyper is a combination of the words "Shooter" and "Typer"!</p>
+        <p>Inputting the word "Restart" will restart the game.</p>
+        <p>Inputting the word "Pause" will pause the game.</p>
+        <p>Hitting ESC will pause the game.</p>
         <button id="start-button">Start Game</button>
       </div>
     
     <div id="level-container"></div>
     <div id="lives-container"></div>
-    <div id="game-over" class="hidden"></div>
+    <div id="game-over" class="hidden">
+    <h1>Game Over</h1>
+    <p>Final Level Reached: <span id="final-level"></span></p>
     <button id="try-again">Try Again</button>
     </div>
     <div id="game-area">        
-      
         <div id="word-container"></div>
         <div id="next-word-container"></div>
         <input type="text" id="input-field" autofocus>
     </div>
 
+    <div id="game-screen">
     <div id="game"></div>
-
+    </div>  
     <script src="script.js">  </script>
 </body>
 </html>

@@ -66,14 +66,13 @@ body {
   }
 }
 
-#game {
+
+#game-screen {
+  position: absolute;
+  top: 220px;
+  left: 0;
   width: 1500px;
   height: 150px;
-
-  position: absolute;
-  margin: 0 auto;
-  overflow: hidden;
-
 }
 
 .player {
@@ -171,14 +170,6 @@ body {
   top: 30px;
   left: 20px;
   text-align: left;
-}
-
-#game-over {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
 }
 
 .hidden {
