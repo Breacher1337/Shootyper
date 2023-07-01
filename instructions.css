@@ -10,16 +10,15 @@
     font-size: 20px;
   }
   
-  #instructions-container h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
-  }
-  
-  #start-button {
-    padding: 10px 20px;
-    font-size: 18px;
+#instructions-container h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
 
-    border: none;
-    cursor: pointer;
-  }
-  
+#start-button {
+  padding: 10px 20px;
+  font-size: 18px;
+
+  border: none;
+  cursor: pointer;
+}
